@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+    db:
+        image: "mcr.microsoft.com/mssql/server"
+        environment:
+            SA_PASSWORD: "123Secret!"
+            ACCEPT_EULA: "Y"
+    definitelyreputablesource_lundeen:
+        image: ${DOCKER_REGISTRY-}definitelyreputablesourcelundeen
+        ports:
+            - '4000:80'
+        build:
+          context: .
+          dockerfile: DefinitelyReputableSource_Lundeen/Dockerfile
+        depends_on:
+            - db
